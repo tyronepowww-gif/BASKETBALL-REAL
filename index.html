@@ -1,0 +1,306 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101720">
+<title>TAP Basketball Core 2 — Real Training</title>
+<style>
+:root{color-scheme:dark;--bg:#101720;--panel:#1b2734;--panel2:#243344;--line:#35475a;--ink:#edf5fc;--muted:#9eb0c2;--orange:#ff9d43;--cyan:#65e0df;--green:#9ce6a3;--pink:#ff8da5;--gold:#f9d76b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#263d51,transparent 35%),var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:11px;padding:10px 13px;background:#26384a;color:var(--ink)}button:disabled{opacity:.4}button.primary{background:var(--orange);color:#24170a;border-color:transparent;font-weight:800}input,select,textarea{width:100%;background:#111c27;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:10px}textarea{min-height:145px;font:12px/1.5 ui-monospace,monospace}label{display:block;font-size:12px;color:var(--muted);margin:8px 0 4px}.app{max-width:900px;margin:auto;padding:14px 14px 60px}.top,.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.top{padding:8px 0 15px}.brand{display:flex;gap:10px;align-items:center}.ball{background:var(--orange);border-radius:14px;padding:8px;font-size:25px}.brand h1{font-size:17px;margin:0}.brand p{font-size:10px;color:var(--muted);margin:2px 0}.pill,.tag{font-size:10px;border:1px solid var(--line);padding:4px 8px;border-radius:99px;color:var(--cyan)}.nav{display:flex;gap:6px;overflow:auto;position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0 12px}.nav button{white-space:nowrap;font-size:11px;padding:9px}.nav .active{background:var(--orange);color:#24170a}.view{display:none}.view.active{display:block}.hero,.card,.game{border:1px solid var(--line);border-radius:16px;padding:15px;background:var(--panel);margin-bottom:10px}.hero{background:linear-gradient(120deg,#263b4c,#17232f 65%,#3d2c23);padding:20px}.eyebrow{font-size:10px;letter-spacing:1.5px;font-weight:900;color:var(--orange)}h2{font-size:23px;line-height:1.15;margin:7px 0}h3{font-size:15px;margin:0 0 6px}p{margin:5px 0 10px}.muted,.small{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.stat{font-size:26px;font-weight:850}.section{margin:20px 0 9px;display:flex;justify-content:space-between;align-items:end;gap:8px}.section h2{font-size:18px;margin:0}.bar{height:7px;background:#0d151d;border-radius:99px;overflow:hidden;margin:8px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--orange));width:0}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions>*{flex:1}.drill{border:1px solid var(--line);border-radius:12px;background:#15212c;padding:12px;margin:8px 0}.drill h3{margin-bottom:4px}.instructions{font-size:13px;white-space:pre-line;color:#d2dfeb}.timer{font-size:44px;font-weight:900;text-align:center;letter-spacing:2px;margin:15px 0}.cue{font-size:25px;font-weight:850;text-align:center;margin:10px 0}.feedback{color:var(--cyan);min-height:22px;font-size:12px;margin-top:8px}.notice{border-left:3px solid var(--gold);background:#263345;border-radius:7px;padding:11px;font-size:12px;margin:10px 0}.metric{background:#111c27;border:1px solid var(--line);padding:10px;border-radius:10px}.metric b{display:block;font-size:22px}.metric span{font-size:11px;color:var(--muted)}.list{display:grid;gap:7px}.item{background:#15212c;border:1px solid var(--line);border-radius:10px;padding:11px}.item strong{display:block}.item small{color:var(--muted)}.good{color:var(--green)}.warn{color:var(--gold)}.bad{color:var(--pink)}.footer{text-align:center;color:#73889a;font-size:10px;margin-top:24px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:390px){.grid3{grid-template-columns:1fr}.hero{padding:15px}.app{padding:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brand"><div class="ball">🏀</div><div><h1>TAP BASKETBALL CORE 2!</h1><p>REAL TRAINING • TRANSFER LAB</p></div></div>
+ <span class="pill" id="saveStatus">LOCAL SAVE</span>
+</header>
+<nav class="nav">
+ <button class="active" data-view="home">CORE</button>
+ <button data-view="train">TRAIN</button>
+ <button data-view="scouter">SCOUTER</button>
+ <button data-view="recovery">RECOVERY</button>
+ <button data-view="tree">SKILL TREE</button>
+ <button data-view="history">HISTORY</button>
+ <button data-view="cartridges">CARTRIDGES</button>
+ <button data-view="save">SAVE / API</button>
+</nav>
+<main>
+<section class="view active" id="view-home">
+ <div class="hero">
+  <div class="eyebrow">REAL-WORLD PERFORMANCE SYSTEM</div>
+  <h2>TRAIN THE TRANSFER.<br>NOT JUST THE BUTTON.</h2>
+  <p class="muted">10-minute indoor sessions. No equipment. Practice movement, react to changing cues, and record what you actually complete.</p>
+  <div class="actions"><button class="primary" onclick="go('train')">START TRAINING →</button><button onclick="go('scouter')">RUN SCOUTER</button></div>
+ </div>
+ <div class="grid">
+  <div class="card"><span class="small">PLAYER XP</span><div class="stat" id="xp">0</div><span class="small" id="rank">Rookie • Level 1</span><div class="bar"><span id="xpbar"></span></div></div>
+  <div class="card"><span class="small">SESSIONS</span><div class="stat" id="sessions">0</div><span class="small">Saved sessions</span></div>
+  <div class="card"><span class="small">REAL PERFORMANCE</span><div class="stat" id="average">—</div><span class="small">Validated session scores</span></div>
+  <div class="card"><span class="small">RECOVERY</span><div class="stat" id="recoveryAvg">—</div><span class="small">Latest check-in /100</span></div>
+ </div>
+ <div class="section"><h2>Today's mission</h2><span class="tag">TRANSFER / ADVANCED</span></div>
+ <div class="card"><h3>Variable-Cue Movement Lab</h3><p class="muted">Practice a movement pattern, change the cue, and execute the appropriate response without losing control.</p>
+ <p class="small">Measure: successful responses, errors, completed rounds, and perceived effort.</p>
+ <button class="primary" onclick="startSession('transfer-advanced')">BEGIN 10-MINUTE SESSION</button></div>
+ <div class="section"><h2>Latest result</h2></div><div class="card" id="latest"><p class="muted">No sessions yet.</p></div>
+ <div class="notice">Safety: use a clear, nonslip indoor space. Work at a controlled pace, not maximal speed. Stop for pain, dizziness, or unusual symptoms. This is a movement-training tool, not a medical assessment.</div>
+</section>
+
+<section class="view" id="view-train">
+ <div class="section"><h2>Training floor</h2><span class="tag">REAL DRILLS</span></div>
+ <div class="card">
+  <label for="cartridgeSelect">Training cartridge</label><select id="cartridgeSelect"></select>
+  <label for="durationSelect">Session duration</label><select id="durationSelect"><option value="10">10 minutes</option><option value="20">20 minutes</option><option value="30">30 minutes</option></select>
+  <button class="primary" style="width:100%;margin-top:10px" onclick="startSession()">LOAD SESSION</button>
+ </div>
+ <div id="activeTraining" class="game">
+  <div class="row"><span class="tag" id="sessionTag">NO SESSION</span><span class="small" id="drillCount">0 / 0 drills</span></div>
+  <div class="timer" id="timer">00:00</div>
+  <div class="bar"><span id="timerBar"></span></div>
+  <div class="cue" id="drillTitle">READY?</div>
+  <div class="instructions" id="drillInstructions">Load a training session to begin.</div>
+  <div class="actions"><button id="timerButton" class="primary" onclick="toggleTimer()">START TIMER</button><button onclick="nextDrill()">NEXT DRILL</button></div>
+  <div class="feedback" id="timerMessage"></div>
+ </div>
+ <div class="section"><h2>Record actual performance</h2><span class="small">Save a result for this drill</span></div>
+ <div class="card">
+  <p class="muted" id="recordDrillName">Load a drill first.</p>
+  <div class="grid">
+   <div><label for="attempts">Attempts</label><input id="attempts" type="number" min="0" max="10000" value="10"></div>
+   <div><label for="successes">Successful reps</label><input id="successes" type="number" min="0" max="10000" value="8"></div>
+   <div><label for="errors">Errors / losses of control</label><input id="errors" type="number" min="0" max="10000" value="2"></div>
+   <div><label for="effort">Effort (RPE 1–10)</label><input id="effort" type="number" min="1" max="10" value="5"></div>
+  </div>
+  <label for="notes">Notes / cue used / conditions</label><textarea id="notes" style="min-height:65px" placeholder="Example: forward/backward cues, stayed balanced, no pain..."></textarea>
+  <div class="actions"><button class="primary" onclick="saveDrillResult()">SAVE DRILL RESULT</button><button onclick="resetDrillInputs()">RESET INPUTS</button></div>
+  <div class="feedback" id="recordFeedback"></div>
+ </div>
+ <div class="notice">Enter counts from the physical drill, not from tapping choices on this screen. The timer measures elapsed time only; it does not automatically detect movement.</div>
+</section>
+
+<section class="view" id="view-scouter">
+ <div class="hero"><div class="eyebrow">SCOUTER // EVIDENCE-BASED</div><h2>REALITY CHECK</h2><p class="muted">Physical metrics remain unknown until a valid real-world test is recorded. Software performance is never substituted for athletic measurement.</p></div>
+ <div class="grid">
+  <div class="metric"><span>REAL DRILL ACCURACY</span><b id="realAccuracy">—</b></div>
+  <div class="metric"><span>DRILL CONSISTENCY</span><b id="consistency">—</b></div>
+  <div class="metric"><span>SIMULATED SCORE</span><b id="simScore">—</b></div>
+  <div class="metric"><span>RECORDED DRILL REPS</span><b id="totalReps">0</b></div>
+ </div>
+ <div class="section"><h2>Stat readings</h2><span class="tag">SOURCE LABELLED</span></div>
+ <div class="list" id="statList"></div>
+ <div class="section"><h2>Baseline comparison</h2></div>
+ <div class="card" id="baselinePanel"><p class="muted">Save at least one real drill result to establish a baseline.</p></div>
+ <div class="section"><h2>Optional physical test entry</h2></div>
+ <div class="card">
+  <p class="muted">Only enter a test you actually performed. Distance and time must be measured independently. Do not estimate values to fill empty fields.</p>
+  <label for="testType">Test type</label><select id="testType"><option value="shuttle">Shuttle test (seconds)</option><option value="sprint">Sprint (seconds)</option><option value="pushups">Strict push-ups (reps)</option><option value="plank">Plank (seconds)</option></select>
+  <label for="testValue">Measured result</label><input id="testValue" type="number" min="0.01" max="100000" step="any" placeholder="Measured value">
+  <label for="testUnit">Unit / distance / protocol</label><input id="testUnit" maxlength="100" placeholder="e.g. 5-10-5 shuttle, seconds">
+  <button class="primary" style="width:100%;margin-top:10px" onclick="saveTest()">SAVE MEASURED TEST</button>
+  <div id="testMessage" class="feedback"></div>
+ </div>
+ <div class="notice">REA = accuracy on logged response drills. SKL Transfer = success rate on transfer drills. CTRL = control derived from recorded error counts. ADAPT = performance across varied cue types only when you record them. None is a professional assessment.</div>
+</section>
+
+<section class="view" id="view-recovery">
+ <div class="hero"><div class="eyebrow">MIND • BODY • SPIRIT</div><h2>RECOVER TO REPEAT.</h2><p class="muted">Self-reported check-in. Not a diagnosis, and not a replacement for sleep or medical care.</p></div>
+ <div class="grid3">
+  <div class="card"><h3>🧠 Mind</h3><p class="small">Focus / clarity</p><input id="mind" type="range" min="0" max="100" value="70" oninput="rangeOut('mind')"><b id="mindOut">70</b>/100</div>
+  <div class="card"><h3>💪 Body</h3><p class="small">Energy / soreness</p><input id="body" type="range" min="0" max="100" value="70" oninput="rangeOut('body')"><b id="bodyOut">70</b>/100</div>
+  <div class="card"><h3>🔥 Spirit</h3><p class="small">Motivation / purpose</p><input id="spirit" type="range" min="0" max="100" value="70" oninput="rangeOut('spirit')"><b id="spiritOut">70</b>/100</div>
+ </div>
+ <div class="actions"><button class="primary" onclick="saveRecovery()">SAVE CHECK-IN</button><button onclick="makeRoutine()">SUGGEST ROUTINE</button></div>
+ <div class="card" id="routine" style="margin-top:10px"><h3>Recovery guidance</h3><p class="muted">Save a check-in to tailor the general guidance.</p></div>
+ <div class="section"><h2>Recent check-ins</h2></div><div class="list" id="recoveryHistory"></div>
+</section>
+
+<section class="view" id="view-tree">
+ <div class="hero"><div class="eyebrow">PROGRESS THROUGH PRACTICE</div><h2>MIND • BODY • SPIRIT</h2><p class="muted">Skill points are earned from saved training sessions. Unlocks are motivational milestones, not proof of mastery.</p></div>
+ <div class="card"><div class="row"><span>Available skill points</span><b class="stat" id="sp">0</b></div></div>
+ <div class="section"><h2>🧠 Mind branch</h2></div><div id="mindTree" class="list"></div>
+ <div class="section"><h2>💪 Body branch</h2></div><div id="bodyTree" class="list"></div>
+ <div class="section"><h2>🔥 Spirit branch</h2></div><div id="spiritTree" class="list"></div>
+</section>
+
+<section class="view" id="view-history">
+ <div class="section"><h2>Session history</h2><span class="tag">LOCAL RECORDS</span></div>
+ <div class="card"><div class="row"><span class="muted">Training sessions</span><b id="historyCount">0</b></div><div class="row"><span class="muted">Drill results</span><b id="resultCount">0</b></div></div>
+ <div id="historyList" class="list"></div>
+ <div class="section"><h2>Measured test history</h2></div><div id="testHistory" class="list"></div>
+</section>
+
+<section class="view" id="view-cartridges">
+ <div class="section"><h2>Cartridge library</h2><span class="tag">LOCAL JS</span></div>
+ <p class="muted">Built-in and user-installed cartridges provide real drill instructions. A cartridge is content, not a sensor or automatic measurement.</p>
+ <div id="cartridgeList" class="list"></div>
+ <div class="section"><h2>Install JavaScript cartridge</h2></div>
+ <div class="card">
+  <p class="muted">Paste a cartridge script and install it locally. Only install code you trust; custom scripts execute with page privileges.</p>
+  <label for="cartCode">Cartridge JavaScript</label>
+  <textarea id="cartCode" spellcheck="false">TAP.registerCartridge({
+  id: "footwork-lab",
+  title: "Footwork Transfer Lab",
+  focus: "SKL Transfer",
+  drills: [
+    {
+      title: "Mirror Step",
+      seconds: 60,
+      instructions: "Stand with feet comfortably apart. Step forward, backward, left, or right in response to a cue you call yourself. Return to a balanced stance after every step. Keep the range small and controlled.",
+      metric: "Clean responses"
+    },
+    {
+      title: "Pattern Switch",
+      seconds: 60,
+      instructions: "Choose a short sequence of three movements. Repeat it slowly. Change the order halfway through and execute the new sequence without rushing.",
+      metric: "Correct sequences"
+    }
+  ]
+});</textarea>
+  <div class="actions"><button class="primary" onclick="installCartridge()">INSTALL CARTRIDGE</button><button onclick="document.getElementById('cartCode').value=''">CLEAR</button></div>
+  <div class="feedback" id="cartMessage"></div>
+  <div class="notice">Installed cartridge definitions are saved locally. The code itself is not re-executed at startup; validated drill data is restored from your save. Back up your profile before importing data from another source.</div>
+ </div>
+ <div class="section"><h2>Cartridge API</h2></div>
+ <div class="card"><p class="muted">Use <code>TAP.registerCartridge({id,title,focus,drills})</code>. Each drill needs a title, instructions, seconds, and optional metric. IDs must be unique. Maximum 30 drills per cartridge and 5 installed cartridges.</p></div>
+</section>
+
+<section class="view" id="view-save">
+ <div class="section"><h2>Save / export</h2><span class="tag">OFFLINE FIRST</span></div>
+ <div class="card">
+  <p class="muted">Your profile is stored in this browser on this device. Private browsing, clearing website data, or browser changes can remove it.</p>
+  <div class="actions"><button class="primary" onclick="exportData()">EXPORT JSON</button><button onclick="document.getElementById('importFile').click()">IMPORT JSON</button></div>
+  <input id="importFile" type="file" accept=".json,application/json" hidden onchange="importData(this)">
+  <div class="actions"><button onclick="exportCSV()">EXPORT DRILL CSV</button><button onclick="resetData()">RESET PROFILE</button></div>
+  <div class="feedback" id="saveMessage"></div>
+ </div>
+ <div class="section"><h2>Chibi TAP bridge</h2></div>
+ <div class="card"><p class="muted">This page exposes a small window.TAP_BASKETBALL_CORE interface. It does not replace the host screen. A host must explicitly support and call the bridge.</p><button onclick="showApi()">CHECK API</button><pre id="apiStatus" class="small"></pre></div>
+</section>
+</main>
+<div class="footer">TAP BASKETBALL CORE 2 • REAL TRAINING • V2.1</div>
+</div>
+
+<script>
+(()=>{
+"use strict";
+const KEY="tap-bb-real-v21";
+const $=id=>document.getElementById(id);
+const iso=()=>new Date().toISOString();
+const uid=()=>Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8);
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const builtins=[
+{id:"transfer-advanced",title:"Transfer Lab: Advanced",focus:"SKL Transfer",drills:[
+{title:"Balance + Direction Switch",seconds:90,metric:"Clean responses",instructions:"Start in an athletic but comfortable stance. Call forward, back, left, or right. Step in the called direction, then return to center under control. After several repetitions, change the cue order. Use small steps and keep your feet on a safe surface."},
+{title:"Three-Move Recall",seconds:90,metric:"Correct sequences",instructions:"Choose three safe movements: side step, backward step, and quarter turn. Perform them in a sequence, pause, then recall the sequence without looking at notes. Change the order and repeat. Keep turns gentle and avoid pivoting on a painful foot."},
+{title:"Reactive Shadow Defense",seconds:90,metric:"Controlled responses",instructions:"Imagine an opponent moving in front of you. Call a direction, slide one or two short steps, and return to a balanced stance. Vary the order unexpectedly. Keep knees comfortable and do not cross your feet at speed."},
+{title:"Pattern Break",seconds:90,metric:"Successful switches",instructions:"Repeat a two-movement pattern five times. Then change one movement or reverse the order. Your goal is to recognize the change and perform the new pattern cleanly rather than rushing."},
+{title:"Controlled Combination",seconds:90,metric:"Clean combinations",instructions:"Combine a side step, controlled retreat, and balanced stop. Call the sequence before each attempt. On later attempts, change the order. Stop and reset if your balance or technique deteriorates."},
+{title:"Transfer Test",seconds:90,metric:"Successful new-cue responses",instructions:"Create a new sequence you have not practiced in this session. Perform it slowly once, then respond to randomly chosen cues. Record successful responses and errors honestly. This is a practice test, not a validated athletic test."}
+]},
+{id:"footwork-basics",title:"Footwork & Balance",focus:"CTRL",drills:[
+{title:"Athletic Stance",seconds:60,metric:"Comfortable holds",instructions:"Adopt a comfortable balanced stance. Keep your breathing relaxed. Hold briefly, stand, and reset. Do not force a deep squat or painful position."},
+{title:"Step and Return",seconds:60,metric:"Clean reps",instructions:"Step forward, return to center, then step sideways and return. Move deliberately. Keep the space clear and the floor nonslip."},
+{title:"Direction Recall",seconds:60,metric:"Correct cues",instructions:"Call a direction and step that way. Return to center before the next cue. Change the order as you become comfortable."},
+{title:"Stop Under Control",seconds:60,metric:"Stable stops",instructions:"Take one comfortable step, stop, and regain balance before moving again. Do not jump or accelerate hard in a restricted space."}
+]},
+{id:"mind-court",title:"Mind: Court Awareness",focus:"TAC",drills:[
+{title:"Scan and Recall",seconds:60,metric:"Correct recalls",instructions:"Look around the safe room and identify three fixed objects. Look away and recall their positions. Repeat with a different order. Never move while your eyes are closed."},
+{title:"Decision Switch",seconds:60,metric:"Correct choices",instructions:"Choose two actions, such as step left and step right. Call one at random and perform it. After a few reps, reverse which cue means which action."},
+{title:"Pattern Recall",seconds:60,metric:"Correct sequences",instructions:"Create a short sequence of safe movements, say it aloud, and repeat it. Change the sequence and consciously switch to the new rule."}
+]}
+];
+const defaultData=()=>({schemaVersion:3,profile:{xp:0,level:1,createdAt:iso()},sessions:[],results:[],recovery:[],tests:[],unlocks:[],installed:[]});
+let data;
+try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(!d||d.schemaVersion!==3)throw 0;data=d;["sessions","results","recovery","tests","unlocks","installed"].forEach(k=>{if(!Array.isArray(data[k]))data[k]=[]});if(!data.profile)data.profile={xp:0,level:1})}catch(e){data=defaultData()}
+let catalog=[...builtins];
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(data));$("saveStatus").textContent="SAVED ✓";setTimeout(()=>$("saveStatus").textContent="LOCAL SAVE",900)}catch(e){$("saveStatus").textContent="SAVE ERROR"}}
+function go(view){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));$("view-"+view)?.classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.view===view));if(view==="scouter")renderScouter();if(view==="history")renderHistory();window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.view)));
+window.go=go;
+let current=null,drillIndex=0,timerId=null,remaining=0,timerTotal=0,running=false;
+function allCarts(){return [...catalog,...data.installed]}
+function currentDrill(){return current?.drills?.[drillIndex]||null}
+function stopTimer(){if(timerId)clearInterval(timerId);timerId=null;running=false;$("timerButton").textContent="START TIMER"}
+function startSession(id){stopTimer();let cartId=id||$("cartridgeSelect").value||"transfer-advanced";let cart=allCarts().find(c=>c.id===cartId)||builtins[0];let duration=Number($("durationSelect").value||10);current={id:uid(),cartridgeId:cart.id,title:cart.title,focus:cart.focus,startedAt:iso(),durationMinutes:duration,drills:cart.drills.map(x=>({...x})),results:[]};drillIndex=0;loadDrill();$("timerMessage").textContent="Session loaded. Follow the drill, then record actual results.";go("train")}
+window.startSession=startSession;
+function loadDrill(){stopTimer();let d=currentDrill();if(!d)return;$("sessionTag").textContent=current.title;$("drillCount").textContent=(drillIndex+1)+" / "+current.drills.length+" drills";$("drillTitle").textContent=d.title;$("drillInstructions").textContent=d.instructions;$("recordDrillName").textContent=d.title+" • "+(d.metric||"Completed reps");remaining=timerTotal=Math.max(1,Number(d.seconds)||60);showTimer();$("timerMessage").textContent="Ready when you are."}
+function showTimer(){$("timer").textContent=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0");$("timerBar").style.width=(timerTotal?100*(1-remaining/timerTotal):0)+"%"}
+function toggleTimer(){if(!current){$("timerMessage").textContent="Load a session first.";return}if(running){stopTimer();$("timerMessage").textContent="Timer paused.";return}running=true;$("timerButton").textContent="PAUSE";let last=Date.now();timerId=setInterval(()=>{let t=Date.now(),delta=Math.floor((t-last)/1000);if(delta>0){remaining=Math.max(0,remaining-delta);last=t;showTimer()}if(remaining<=0){stopTimer();$("timerMessage").textContent="Interval complete. Record your results or move to the next drill."}},250)}
+window.toggleTimer=toggleTimer;
+function nextDrill(){if(!current){$("timerMessage").textContent="Load a session first.";return}if(drillIndex<current.drills.length-1){drillIndex++;loadDrill();return}finishSession()}
+window.nextDrill=nextDrill;
+function finishSession(){if(!current)return;stopTimer();let c=current;const results=data.results.filter(r=>r.sessionId===c.id);let sum=results.reduce((a,r)=>a+r.successes,0),attempts=results.reduce((a,r)=>a+r.attempts,0);let score=attempts?Math.round(sum/attempts*100):null;const session={id:c.id,cartridgeId:c.cartridgeId,title:c.title,focus:c.focus,startedAt:c.startedAt,endedAt:iso(),durationMinutes:c.durationMinutes,resultCount:results.length,accuracy:score,scoreType:"real logged drill accuracy"};data.sessions.push(session);data.profile.xp=(data.profile.xp||0)+10+results.length*2;data.profile.level=Math.floor(data.profile.xp/100)+1;current=null;persist();renderAll();$("timerMessage").textContent="Session saved. "+(score===null?"No drill results were recorded.":"Logged drill accuracy: "+score+"%.");$("drillTitle").textContent="SESSION COMPLETE";$("drillInstructions").textContent="Review your results in the Scouter or History."; $("drillCount").textContent="Complete";$("timerButton").textContent="START TIMER"}
+window.finishSession=finishSession;
+function readNumber(id,min,max,integer=true){let raw=$(id).value;if(raw.trim()==="")return null;let n=Number(raw);if(!Number.isFinite(n)||n<min||n>max||(integer&&!Number.isInteger(n)))return null;return n}
+function saveDrillResult(){if(!current||!currentDrill()){$("recordFeedback").textContent="Load a session and drill first.";return}let a=readNumber("attempts",0,10000),s=readNumber("successes",0,10000),e=readNumber("errors",0,10000),rpe=readNumber("effort",1,10);if(a===null||s===null||e===null||rpe===null||a<1||s>a||e>a){$("recordFeedback").textContent="Invalid data. Attempts must be 1–10000; successes and errors cannot exceed attempts; RPE must be 1–10.";return}
+const rec={id:uid(),sessionId:current.id,cartridgeId:current.cartridgeId,drillTitle:currentDrill().title,focus:current.focus,at:iso(),attempts:a,successes:s,errors:e,accuracy:Math.round(s/a*100),effort:rpe,notes:$("notes").value.slice(0,1000),metric:currentDrill().metric||"Successful reps"};data.results.push(rec);current.results.push(rec.id);persist();renderAll();$("recordFeedback").textContent="Saved: "+rec.successes+"/"+rec.attempts+" successful • "+rec.accuracy+"% logged accuracy."; }
+window.saveDrillResult=saveDrillResult;
+function resetDrillInputs(){$("attempts").value=10;$("successes").value=8;$("errors").value=2;$("effort").value=5;$("notes").value=""}
+window.resetDrillInputs=resetDrillInputs;
+function average(a){return a.length?a.reduce((s,x)=>s+x,0)/a.length:null}
+function renderHome(){let xp=data.profile.xp||0;$("xp").textContent=xp;$("xpbar").style.width=(xp%100)+"%";let level=Math.floor(xp/100)+1;$("rank").textContent=(level<3?"Rookie":level<6?"Starter":level<10?"Rotation Player":level<15?"Captain":"Ace")+" • Level "+level;$("sessions").textContent=data.sessions.length;let acc=average(data.results.map(x=>x.accuracy));$("average").textContent=acc===null?"—":Math.round(acc)+"%";let r=data.recovery.at(-1);$("recoveryAvg").textContent=r?Math.round((r.mind+r.body+r.spirit)/3):"—";let last=data.sessions.at(-1);$("latest").innerHTML=last?`<strong>${escapeHTML(last.title)}</strong><p class="muted">${new Date(last.endedAt).toLocaleString()}</p><div class="stat">${last.accuracy===null?"No score":last.accuracy+"%"}</div><p class="small">${last.resultCount} drill records • ${last.durationMinutes} min planned</p>`:"<p class='muted'>No sessions yet. Start a real drill to create your first result.</p>"}
+function renderSelect(){let sel=$("cartridgeSelect"),old=sel.value;sel.innerHTML=allCarts().map(c=>`<option value="${escapeHTML(c.id)}">${escapeHTML(c.title)}</option>`).join("");if(allCarts().some(c=>c.id===old))sel.value=old}
+function renderCartridges(){$("cartridgeList").innerHTML=allCarts().map(c=>`<div class="item"><div class="row"><strong>${escapeHTML(c.title)}</strong><span class="tag">${escapeHTML(c.focus)}</span></div><small>${c.drills.length} drills • ${c.drills.reduce((a,d)=>a+(Number(d.seconds)||60),0)} seconds total intervals</small><p class="muted">${escapeHTML(c.drills.map(d=>d.title).join(" • "))}</p><button onclick="startSession('${escapeHTML(c.id)}')">START CARTRIDGE</button></div>`).join("");renderSelect()}
+function renderScouter(){let vals=data.results;let a=vals.reduce((s,r)=>s+r.attempts,0),s=vals.reduce((x,r)=>x+r.successes,0);$("realAccuracy").textContent=a?Math.round(s/a*100)+"%":"—";$("totalReps").textContent=a;let bySession=data.sessions.map(ss=>{let rr=vals.filter(r=>r.sessionId===ss.id);let aa=rr.reduce((x,r)=>x+r.attempts,0),su=rr.reduce((x,r)=>x+r.successes,0);return aa?su/aa*100:null}).filter(x=>x!==null);let sd=average(bySession.map(x=>Math.abs(x-(average(bySession)||0))));$("consistency").textContent=bySession.length>1?Math.max(0,Math.round(100-(sd||0)))+"/100":"Need 2+ scored sessions";$("simScore").textContent="Not recorded";let transfer=vals.filter(r=>/transfer/i.test(r.focus));let trA=transfer.reduce((x,r)=>x+r.attempts,0),trS=transfer.reduce((x,r)=>x+r.successes,0);let ctrlA=vals.reduce((x,r)=>x+r.attempts,0),ctrlE=vals.reduce((x,r)=>x+r.errors,0);let bands=[
+["REA","Logged response accuracy",a?Math.round(s/a*100)+"/100":"Not assessed","Real drill logs"],
+["SKL","Technical execution",vals.length?Math.round(average(vals.map(r=>r.accuracy)))+"/100":"Not assessed","Recorded drill success; not expert technique rating"],
+["SKL Transfer","Transfer success",trA?Math.round(trS/trA*100)+"/100":"Not assessed","Only drills labelled as transfer"],
+["CTRL","Recorded error control",ctrlA?Math.round(100*(1-ctrlE/ctrlA))+"/100":"Not assessed","Derived from entered errors"],
+["TAC","Tactical decisions","Not assessed","Requires a scored decision-making protocol"],
+["ADAPT","Adaptability","Not assessed","Requires a repeatable varied-cue test"],
+["STR","Physical strength","Not assessed","No strength protocol entered"],
+["SPD","Physical speed","Not assessed","No validated timed test entered"],
+["END","Physical endurance","Not assessed","No endurance protocol entered"]
+];$("statList").innerHTML=bands.map(b=>`<div class="item"><div class="row"><strong>${escapeHTML(b[0])} — ${escapeHTML(b[1])}</strong><b>${escapeHTML(b[2])}</b></div><small>${escapeHTML(b[3])}</small></div>`).join("");renderBaseline()}
+function renderBaseline(){let scored=data.results.filter(r=>r.attempts>0);let first=average(scored.slice(0,Math.min(3,scored.length)).map(r=>r.accuracy));let latest=average(scored.slice(-3).map(r=>r.accuracy));$("baselinePanel").innerHTML=first===null?"<p class='muted'>Save real drill results to establish a baseline.</p>":`<div class="grid"><div class="metric"><span>INITIAL BASELINE (FIRST 3 RESULTS)</span><b>${Math.round(first)}%</b></div><div class="metric"><span>LATEST (LAST 3 RESULTS)</span><b>${Math.round(latest)}%</b></div></div><p class="${latest>=first?'good':'warn'}">${latest>first?"↑":latest<first?"↓":"→"} ${Math.round(latest-first)} percentage points versus initial baseline.</p><p class="small">This compares recorded results; use the same drill and conditions for a meaningful trend. It is not proof of general athletic improvement.</p>`}
+function renderHistory(){$("historyCount").textContent=data.sessions.length;$("resultCount").textContent=data.results.length;$("historyList").innerHTML=data.sessions.slice().reverse().map(s=>`<div class="item"><div class="row"><strong>${escapeHTML(s.title)}</strong><b>${s.accuracy===null?"—":s.accuracy+"%"}</b></div><small>${new Date(s.endedAt).toLocaleString()} • ${s.durationMinutes} min planned • ${s.resultCount} drill results</small><p><button onclick="showSession('${escapeHTML(s.id)}')">VIEW RESULTS</button></p></div>`).join("")||"<p class='muted'>No saved sessions yet.</p>";$("testHistory").innerHTML=data.tests.slice().reverse().map(t=>`<div class="item"><strong>${escapeHTML(t.type)}</strong><b>${t.value} ${escapeHTML(t.unit)}</b><small>${new Date(t.at).toLocaleString()}</small></div>`).join("")||"<p class='muted'>No measured tests yet.</p>"}
+window.showSession=id=>{let s=data.sessions.find(x=>x.id===id);if(!s)return;let rs=data.results.filter(x=>x.sessionId===id);alert(s.title+"\n"+rs.map(r=>r.drillTitle+": "+r.successes+"/"+r.attempts+" ("+r.accuracy+"%), errors "+r.errors+", RPE "+r.effort+(r.notes?"\n"+r.notes:"")).join("\n\n")||"No drill records.")};
+const nodes=[
+{id:"m1",branch:"mind",title:"Pattern Reader",cost:1,desc:"Milestone: record 1 session."},
+{id:"m2",branch:"mind",title:"Rule Switch",cost:2,desc:"Milestone: record 3 sessions."},
+{id:"m3",branch:"mind",title:"Decision Review",cost:3,desc:"Milestone: record 5 sessions."},
+{id:"b1",branch:"body",title:"Movement Control",cost:1,desc:"Milestone: record 1 drill result."},
+{id:"b2",branch:"body",title:"Repeat Quality",cost:2,desc:"Milestone: record 5 drill results."},
+{id:"b3",branch:"body",title:"Consistency Log",cost:3,desc:"Milestone: record 10 drill results."},
+{id:"s1",branch:"spirit",title:"First Step",cost:1,desc:"Milestone: complete a session."},
+{id:"s2",branch:"spirit",title:"Training Streak",cost:2,desc:"Milestone: complete 3 sessions."},
+{id:"s3",branch:"spirit",title:"Reflection",cost:3,desc:"Milestone: save 3 recovery check-ins."}
+];
+function points(){return Math.max(0,data.sessions.length+data.results.length-Math.floor(data.unlocks.reduce((n,id)=>n+(nodes.find(x=>x.id===id)?.cost||0),0)))}
+function renderTree(){$("sp").textContent=points();for(let branch of ["mind","body","spirit"]){let dest=$(branch+"Tree");dest.innerHTML=nodes.filter(n=>n.branch===branch).map(n=>{let own=data.unlocks.includes(n.id),req=n.id==="m1"?data.sessions.length>=1:n.id==="m2"?data.sessions.length>=3:n.id==="m3"?data.sessions.length>=5:n.id==="b1"?data.results.length>=1:n.id==="b2"?data.results.length>=5:n.id==="b3"?data.results.length>=10:n.id==="s1"?data.sessions.length>=1:n.id==="s2"?data.sessions.length>=3:data.recovery.length>=3;let available=req&&points()>=n.cost&&!own;return `<div class="item"><div class="row"><strong>${own?"✓ ":""}${escapeHTML(n.title)}</strong><span class="tag">${own?"UNLOCKED":n.cost+" SP"}</span></div><small>${escapeHTML(n.desc)}</small><p><button ${available?"":"disabled"} onclick="unlock('${n.id}')">${own?"OWNED":available?"UNLOCK":"NOT READY"}</button></p></div>`}).join("")}}
+window.unlock=id=>{let n=nodes.find(x=>x.id===id);if(!n||data.unlocks.includes(id)||points()<n.cost)return;let req=n.id==="m1"||n.id==="s1"?data.sessions.length>=1:n.id==="m2"||n.id==="s2"?data.sessions.length>=3:n.id==="m3"?data.sessions.length>=5:n.id==="b1"?data.results.length>=1:n.id==="b2"?data.results.length>=5:n.id==="b3"?data.results.length>=10:data.recovery.length>=3;if(!req)return;data.unlocks.push(id);persist();renderTree()}
+function rangeOut(id){$(id+"Out").textContent=$(id).value}
+window.rangeOut=rangeOut;
+function saveRecovery(){let r={id:uid(),at:iso(),mind:+$("mind").value,body:+$("body").value,spirit:+$("spirit").value};data.recovery.push(r);persist();renderRecovery();renderHome();makeRoutine()}
+window.saveRecovery=saveRecovery;
+function makeRoutine(){let m=+$("mind").value,b=+$("body").value,s=+$("spirit").value;let title,steps;if(Math.min(m,b,s)<35){title="LOW-LOAD RESET";steps=["Pause demanding training and assess what you need.","Choose rest, hydration, food, or gentle comfortable movement.","Stop if you feel unwell or experience pain or dizziness."]}else if(b<55){title="BODY-FIRST RECOVERY";steps=["Use a gentle warm-up or comfortable mobility only if pain-free.","Reduce intensity and take longer rests.","Prioritize sleep, fluids, and adequate food."]}else if(m<55){title="MIND RESET";steps=["Take a minute of comfortable breathing.","Reduce distractions and choose one simple task.","Practice at a calm pace instead of chasing a score."]}else if(s<55){title="PURPOSE RESET";steps=["Set one small achievable goal.","Reflect on what you learned in the last session.","Keep the session short if motivation remains low."]}else{title="CONTROLLED BUILD";steps=["Warm up gently before physical practice.","Use controlled repetitions and short rest breaks.","Stop when movement quality declines."]}$("routine").innerHTML="<div class='eyebrow'>"+title+"</div><h3>Suggested route</h3><ol>"+steps.map(x=>"<li>"+escapeHTML(x)+"</li>").join("")+"</ol><p class='small'>General self-management guidance, not medical advice.</p>"}
+window.makeRoutine=makeRoutine;
+function renderRecovery(){let r=data.recovery.at(-1);if(r){["mind","body","spirit"].forEach(k=>{$(k).value=r[k];rangeOut(k)})}$("recoveryHistory").innerHTML=data.recovery.slice(-5).reverse().map(r=>`<div class="item"><strong>${new Date(r.at).toLocaleString()}</strong><small>Mind ${r.mind} • Body ${r.body} • Spirit ${r.spirit} • Average ${Math.round((r.mind+r.body+r.spirit)/3)}/100</small></div>`).join("")||"<p class='muted'>No check-ins yet.</p>"}
+function saveTest(){let type=$("testType").value,v=readNumber("testValue",0.01,100000,false),unit=$("testUnit").value.trim();if(v===null||!unit){$("testMessage").textContent="Enter a positive measured result and its protocol/unit.";return}data.tests.push({id:uid(),type,value:v,unit:unit.slice(0,100),at:iso(),source:"user-entered measurement"});persist();renderHistory();$("testMessage").textContent="Measured test saved. No performance band is inferred from this entry."}
+window.saveTest=saveTest;
+function installCartridge(){let code=$("cartCode").value.trim();if(!code){$("cartMessage").textContent="Paste cartridge code first.";return}if(data.installed.length>=5){$("cartMessage").textContent="Maximum of 5 installed cartridges reached.";return}let staged=null;const TAP={registerCartridge:c=>{if(staged)throw Error("Only one cartridge per install.");staged=c}};try{new Function("TAP",'"use strict";\n'+code)(TAP);if(!staged)throw Error("No cartridge registered.");let c=staged;if(!c||typeof c.id!=="string"||!/^[a-z0-9-]{2,40}$/.test(c.id)||typeof c.title!=="string"||typeof c.focus!=="string"||!Array.isArray(c.drills)||!c.drills.length||c.drills.length>30)throw Error("Invalid manifest. Check id, title, focus, and 1–30 drills.");if(allCarts().some(x=>x.id===c.id))throw Error("That cartridge ID is already installed.");let clean={id:c.id,title:c.title.slice(0,80),focus:c.focus.slice(0,60),drills:c.drills.map(d=>{if(!d||typeof d.title!=="string"||typeof d.instructions!=="string")throw Error("Every drill needs a title and instructions.");let seconds=Number(d.seconds||60);if(!Number.isInteger(seconds)||seconds<10||seconds>3600)throw Error("Drill seconds must be an integer from 10 to 3600.");return {title:d.title.slice(0,100),instructions:d.instructions.slice(0,1500),seconds,metric:String(d.metric||"Successful reps").slice(0,80)}})};data.installed.push(clean);persist();renderCartridges();$("cartMessage").textContent="Installed "+clean.title+". It is available in the training selector."}catch(e){$("cartMessage").textContent="Install failed: "+e.message}}
+window.installCartridge=installCartridge;
+function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});download(blob,"tap-basketball-real-training.json");$("saveMessage").textContent="JSON export prepared."}
+window.exportData=exportData;
+function exportCSV(){let rows=[["date","sessionId","cartridgeId","drillTitle","attempts","successes","errors","accuracy","effort","notes"]];data.results.forEach(r=>rows.push([r.at,r.sessionId,r.cartridgeId,r.drillTitle,r.attempts,r.successes,r.errors,r.accuracy,r.effort,r.notes]));let csv=rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");download(new Blob([csv],{type:"text/csv"}),"tap-basketball-drills.csv");$("saveMessage").textContent="CSV export prepared."}
+window.exportCSV=exportCSV;
+function download(blob,name){let url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function importData(input){let f=input.files[0];if(!f)return;if(f.size>5*1024*1024){$("saveMessage").textContent="Import rejected: maximum 5 MB.";return}let rd=new FileReader();rd.onload=()=>{try{let x=JSON.parse(rd.result);if(x.schemaVersion!==3||!x.profile||!Array.isArray(x.sessions)||!Array.isArray(x.results)||!Array.isArray(x.recovery)||!Array.isArray(x.tests)||!Array.isArray(x.unlocks)||!Array.isArray(x.installed))throw Error("Unsupported schema.");if(x.sessions.length>10000||x.results.length>50000||x.recovery.length>2000||x.tests.length>10000||x.installed.length>5)throw Error("Record limit exceeded.");for(let r of x.results){if(!Number.isInteger(r.attempts)||r.attempts<1||r.attempts>10000||!Number.isInteger(r.successes)||r.successes<0||r.successes>r.attempts||!Number.isInteger(r.errors)||r.errors<0||r.errors>r.attempts||!Number.isFinite(r.accuracy)||r.accuracy<0||r.accuracy>100)throw Error("Invalid drill result.")}for(let r of x.recovery){for(let k of ["mind","body","spirit"])if(!Number.isInteger(r[k])||r[k]<0||r[k]>100)throw Error("Invalid recovery record.")}if(!confirm("Replace current local profile with imported data? Export your current profile first if needed."))return;data=x;persist();renderAll();$("saveMessage").textContent="Import successful."}catch(e){$("saveMessage").textContent="Import rejected: "+e.message}input.value=""};rd.readAsText(f)}
+window.importData=importData;
+function resetData(){if(!confirm("Delete this local training profile? Export a backup first."))return;data=defaultData();current=null;stopTimer();persist();renderAll();$("saveMessage").textContent="Profile reset."}
+window.resetData=resetData;
+function showApi(){$("apiStatus").textContent=JSON.stringify({version:"2.1.0",manifest:{id:"tap.basketball-core.real",apiVersion:"1",title:"TAP Basketball Core 2 — Real Training"},cartridges:allCarts().length,sessions:data.sessions.length,results:data.results.length,methods:["getProfile()","getSessions()","getResults()","launch(id)","go(view)","readCartridges()","exportSave()"]},null,2)}
+window.showApi=showApi;
+window.TAP_BASKETBALL_CORE={version:"2.1.0",manifest:{id:"tap.basketball-core.real",apiVersion:"1",title:"TAP Basketball Core 2 — Real Training"},getProfile:()=>JSON.parse(JSON.stringify(data.profile)),getSessions:()=>JSON.parse(JSON.stringify(data.sessions)),getResults:()=>JSON.parse(JSON.stringify(data.results)),launch:id=>startSession(id),go,readCartridges:renderCartridges,exportSave:exportData};
+try{if(window.tap&&typeof window.tap.onLaunch==="function")window.tap.onLaunch(()=>renderAll())}catch(e){}
+function renderAll(){renderHome();renderSelect();renderCartridges();renderScouter();renderRecovery();renderTree();renderHistory()}
+renderAll();persist();
+})();
+</script>
+</body>
+</html>
